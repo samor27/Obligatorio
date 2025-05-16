@@ -11,4 +11,6 @@ class Sistema:
   @max_clientes.setter
   def max_clientes(self,num):
     self.__max_clientes=num
+  def aumentar_clientes
+    max_clientes +=1
     
