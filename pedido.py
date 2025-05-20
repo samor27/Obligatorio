@@ -19,8 +19,12 @@ class Pedido:
     def select_cliente(self):
         print ("Clientes: ") #Lista de clientes
         #for i in range (clientes):
-            #print clientes[i]
-        self.cliente = int(input("Introduzca el número de cliente"))
+            #print (i, clientes[i])
+        num = int(input("Introduzca el número de cliente"))
+        # for i in range (clientes):
+        #     if num == i:
+        #         self.cliente = clientes[i]
+
 
     def select_maquina(self):
         print("Maquinas: ") #Lista de Maquinas
