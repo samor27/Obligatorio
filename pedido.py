@@ -29,5 +29,8 @@ class Pedido:
     def select_maquina(self):
         print("Maquinas: ") #Lista de Maquinas
         #for i in range (maquina):
-            #print maquina[i]
-        self.maquina = int(input("Introduzca el número de la maquina que quiera pedir: "))
+            #print (i, maquina[i])
+        num = int(input("Introduzca el número de la maquina que quiera pedir: "))
+        # for i in range (maquina):
+        #     if num == i:
+        #         self.maquina = maquina[i]
