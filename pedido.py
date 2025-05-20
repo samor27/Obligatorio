@@ -20,17 +20,28 @@ class Pedido:
         print ("Clientes: ") #Lista de clientes
         #for i in range (clientes):
             #print (i, clientes[i])
-        num = int(input("Introduzca el número de cliente"))
-        # for i in range (clientes):
-        #     if num == i:
-        #         self.cliente = clientes[i]
+        cond = False
+        while cond == False:
+            num = int(input("Introduzca el número de cliente"))
+            # for i in range (clientes):
+            #     if num == i:
+            #         self.cliente = clientes[i]
+            #         cond = True
+            #     else:
+            #         print("El numero ingresado no corresponde con ningun cliente./
+            #          Pruebe de nuevo")
 
 
     def select_maquina(self):
         print("Maquinas: ") #Lista de Maquinas
         #for i in range (maquina):
             #print (i, maquina[i])
-        num = int(input("Introduzca el número de la maquina que quiera pedir: "))
-        # for i in range (maquina):
-        #     if num == i:
-        #         self.maquina = maquina[i]
+        cond = False
+        while cond == False:
+            num = int(input("Introduzca el número de la maquina que quiera pedir: "))
+            # for i in range (maquina):
+            #     if num == i:
+            #         self.maquina = maquina[i]
+            #     else:
+            #         print("El numero ingresado no corresponde con ningun cliente./
+            #          Pruebe de nuevo")
