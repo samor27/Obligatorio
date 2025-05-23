@@ -1,11 +1,12 @@
-
+from cliente import Cliente
+from maquina import Maquina
 import datetime
 #import costo_de_produccion from Maquina
 class Pedido:
-    def __init__(self, cliente, maquina, fecha_entregado, estado):
+    def __init__(self, cliente: Cliente, maquina: Maquina, fecha_entregado, estado):
         self.cliente = cliente
         self.maquina = maquina
-        self.fecha_recibido = (datetime.date, datetime.time)
+        self.fecha_recibido = datetime.now()
         self.fecha_entregado = fecha_entregado
         self.estado = estado #pendiente o entregado
         self.__precio = 0
@@ -55,7 +56,7 @@ class Pedido:
             #          Pruebe de nuevo")
         #return maquina
     
-    def entrega(self, stock, piezas_maquina):
+   # def entrega(self, stock, piezas_maquina):
         #if stock[j] == piezas_maquina:
             #self.estado = "entregado"
             #self.fecha_entregado = (datetime.date, datetime.time)
