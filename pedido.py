@@ -8,6 +8,7 @@ class Pedido:
         self.fecha_recibido = (datetime.date, datetime.time)
         self.fecha_entregado = fecha_entregado
         self.estado = estado #pendiente o entregado
+        self.__precio = 0
     
     @property
     def precio(self):
@@ -54,3 +55,10 @@ class Pedido:
             #          Pruebe de nuevo")
         #return maquina
     
+    def entrega(self, stock, piezas_maquina):
+        #if stock[j] == piezas_maquina:
+            #self.estado = "entregado"
+            #self.fecha_entregado = (datetime.date, datetime.time)
+        #else:
+            #self.estado = "pendiente"
+            #self.fecha_entregado = "pendiente"
