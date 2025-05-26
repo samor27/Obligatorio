@@ -13,6 +13,8 @@
 #     5. Contabilidad
 #     6. Salir
 # 3. Salir del Sistema
+from sistema import Sistema
+sistema = Sistema()
 if __name__ == "__main__":
     codigo = True
     while codigo == True:
@@ -21,7 +23,7 @@ if __name__ == "__main__":
         3. Salir del sistema ")
         operacion = int(input())
 
-        while (operacion == 1):
+        while operacion == 1:
             print("1. Pieza \
             2. Máquina \
             3. Cliente \
@@ -29,6 +31,13 @@ if __name__ == "__main__":
             5. Reposición \
             6. Salir ")
             regis = int(input())
+             if regis == 1:
+                descripcion = input("Ingrese la descripción de la pieza: ")
+                costo = float(input("Ingrese el costo de la pieza: "))
+                tamaño_lote = int(input("Ingrese el tamaño del lote: "))
+                cantidad_disponible = int(input("Ingrese la cantidad disponible: "))
+                sistema.registrar_pieza(descripcion, costo, tamaño_lote, cantidad_disponible)
+            
                 #Metemos todas las opciones
             if regis == 6:
                 break
@@ -44,6 +53,10 @@ if __name__ == "__main__":
             5. Contabilidad\
             6. Salir ")
             lis = int(input())
+
+
+             if lis == 4:
+                sistema.listar_piezas()
 
             if lis == 6:
                 break
