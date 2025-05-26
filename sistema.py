@@ -1,6 +1,6 @@
 
 class Sistema:
-  def __init__(self,max_clientes,clientes,piezas,maquinas,pedido):
+  def __init__(self):
       self.clientes=[]
       self.piezas=[]
       self.maquinas=[]
