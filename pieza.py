@@ -5,3 +5,15 @@ class Pieza:
         self.costo = costo
         self.tamaño_lote = tamaño_lote
         self.cantidad_disponible = cantidad_disponible
+    
+    def agregar_stock(self,cantidad):
+        self.cantidad_disponible += cantidad
+
+    def quitar_stock(self,cantidad):
+        if cantidad > self.cantidad_disponible:
+            raise ValueError("No hay suficiente stock disponible")
+        self.cantidad_disponible -= cantidad   
+
+
+   
+
