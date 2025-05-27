@@ -37,7 +37,12 @@ if __name__ == "__main__":
             tamaño_lote = int(input("Ingrese el tamaño del lote: "))
             cantidad_disponible = int(input("Ingrese la cantidad disponible: "))
             sistema.registrar_pieza(descripcion, costo, tamaño_lote, cantidad_disponible)
-            
+        if regis == 4:
+            clientes = Sistema.select_cliente()
+            maquina = Sistema.select_maquina()
+            estado, fecha_entregado = Sistema.entrega(stock)
+            Sistema.registrar_pedido(clientes, maquina, fecha_entregado, estado)
+
                 #Metemos todas las opciones
         if regis == 6:
                 break

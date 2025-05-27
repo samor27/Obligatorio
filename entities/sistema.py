@@ -1,4 +1,8 @@
-
+from entities.pedido import Pedido
+from entities.maquina import Maquina
+from entities.cliente import Cliente
+from entities.requerimiento import Requerimiento
+import datetime 
 class Sistema:
   def __init__(self):
       self.clientes=[]
@@ -45,3 +49,55 @@ class Sistema:
       for i in range(len(self.piezas)):
         pieza = self.piezas[i]
         print(f"Código: {pieza.codigo}, Descripción: {pieza.descripcion}, Costo: {pieza.costo}, Tamaño de lote: {pieza.tamaño_lote}, Cantidad disponible: {pieza.cantidad_disponible}")
+
+  
+  #Pedido
+  def registrar_pedido(self, cliente, maquina, fecha_entregado, estado):
+      cliente = Pedido(cliente, maquina, fecha_entregado, estado)
+      self.pedidos.append(cliente)
+
+  
+  def select_cliente(self):
+      print ("Clientes: ") #Lista de clientes
+      for i in range (len(self.clientes)):
+        Cliente = self.clientes[i]
+        print (f"{i}) {Cliente.ID}")
+
+      cond = False
+      while cond == False:
+          num = int(input("Introduzca el número de cliente"))
+          for i in range (self.clientes):
+              if num == i:
+                cliente = self.clientes[i]
+                return cliente
+          print("El numero ingresado no corresponde con ningun cliente." /
+              "Pruebe de nuevo")
+
+
+  def select_maquina(self):
+      print("Maquinas: ") #Lista de Maquinas
+      for i in range (self.maquinas):
+        Maquina = self.maquina[i]
+        print (f"{i}) {Maquina.descripcion}")
+
+      cond = False
+      while cond == False:
+        num = int(input("Introduzca el número de la maquina que quiera pedir: "))
+        for i in range (maquina):
+          if num == i:
+            maquina = maquina[i]
+            return maquina
+        else:
+          print("El numero ingresado no corresponde con ninguna Maquina." /
+          "Pruebe de nuevo")
+
+    
+  def entrega(self, maquina):
+    m = [Requerimiento.cantidad ]
+      if stock[i][1] == 
+        if stock[j] >= Requerimiento.cantidad:
+          self.estado = "entregado"
+          self.fecha_entregado = (datetime.date, datetime.time)
+        else:
+          self.estado = "pendiente"
+          self.fecha_entregado = "pendiente"
