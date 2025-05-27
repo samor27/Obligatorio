@@ -1,5 +1,5 @@
-from cliente import Cliente
-from maquina import Maquina
+from entities.cliente import Cliente
+from entities.maquina import Maquina
 import datetime
 #import costo_de_produccion from Maquina
 class Pedido:
@@ -22,6 +22,11 @@ class Pedido:
         #     self.__precio = pre*0,8
         # else:
         #     self.__precio = pre
+
+
+
+
+
 
     def select_cliente():
         print ("Clientes: ") #Lista de clientes
@@ -63,3 +68,16 @@ class Pedido:
         #else:
             #self.estado = "pendiente"
             #self.fecha_entregado = "pendiente"
+
+
+              if regis == 4:
+                clientes = Sistema.select_cliente()
+                maquina = Sistema.select_maquina()
+                #estado, fecha_entregado = Sistema.entrega(stock, piezas maquina)
+                clientes.Ped
+
+                  def registrar_pedido(self, cliente, maquina, fecha_entregado, estado):
+      cliente = Pedido(cliente, maquina, fecha_entregado, estado)
+      self.pedidos.append(cliente)
+
+      
