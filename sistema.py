@@ -1,4 +1,3 @@
-
 class Sistema:
   def __init__(self,max_clientes,clientes,piezas,maquinas,pedido):
       self.clientes=[]
