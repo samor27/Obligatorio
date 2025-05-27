@@ -92,12 +92,8 @@ class Sistema:
           "Pruebe de nuevo")
 
     
-  def entrega(self, maquina):
-    m = [Requerimiento.cantidad ]
-      if stock[i][1] == 
-        if stock[j] >= Requerimiento.cantidad:
-          self.estado = "entregado"
-          self.fecha_entregado = (datetime.date, datetime.time)
-        else:
-          self.estado = "pendiente"
-          self.fecha_entregado = "pendiente"
+  def entrega(self):
+     for i in range (len(self.maquinas)):
+        Maquina = self.maquinas[i]
+        for j in range (len(stock)):
+           if stock[j] == (Maquina.Requerimiento.pieza):
