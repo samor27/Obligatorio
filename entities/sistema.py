@@ -9,17 +9,51 @@ class Sistema:
       self.piezas=[]
       self.maquinas=[]
       self.pedidos=[]
-      self.__max_clientes= 1
+      self.max_clientes= 1
       self.codigo_pieza = 1
   
-  @property
-  def max_clientes(self):
-    return self.__max_clientes
-  @max_clientes.setter
-  def max_clientes(self,num):
-    self.__max_clientes=num
-  def aumentar_clientes():
-    max_clientes +=1
+ def agregar_clientes(self,cliente: Cliente):
+    self.clientes.append(cliente)
+
+  def listar_emp(self):
+    for i in range (0,len(self.clientes)):
+       Empresa= self.clientes[i]
+       if len(vars(Empresa)) == 6:
+        print (f"ID: {Empresa.ID}, Teléfono: {Empresa.telefono}, Correo: {Empresa.correo}, RUT: {Empresa.RUT}, Nombre: {Empresa.nombre}, Página web: {Empresa.pagina_web}")
+
+  def listar_par(self):
+     for i in range (0,len(self.clientes)):
+        Particular = self.clientes [i]
+        if len(vars(Particular)) == 5:
+          print (f"ID: {Particular.ID}, Teléfono: {Particular.telefono}, Correo: {Particular.correo}, Cédula: {Particular.cedula}, Nombre: {Particular.nombre_completo}")
+
+  def registrar_empresa(self,telefono,correo,RUT,nombre,pagina_web):
+        ID=self.max_clientes
+        self.max_clientes +=1
+        nombre=Empresa(ID,telefono,correo,RUT,nombre,pagina_web)
+        self.agregar_clientes(nombre)
+
+  def registrar_particular(self, telefono,correo,cedula,nombre_completo):
+        ID = self.max_clientes
+        self.max_clientes+=1
+        nombre_completo=Particular(ID,telefono,correo,cedula, nombre_completo)
+        self.agregar_clientes(nombre_completo)
+
+  def reponer (self):
+     codigo = int(input ("Ingrese el código de la píeza a reponer "))
+     pieza_a_reponer = None
+     for pieza in self.piezas:
+        if pieza.codigo == codigo:
+            pieza_a_reponer = pieza
+            break
+
+     if pieza_a_reponer is None:
+        print("Pieza no encontrada.")
+        return
+     cantidad_lotes = int(input("Ingrese la cantidad a reponer: "))
+     repo= Reposición(pieza_a_reponer, cantidad_lotes)
+     pieza.cantidad_disponible +=repo.cantidad_lotes
+     print("Reposición realizada.")
 
   def registrar_pieza(self,descripcion,costo,tamaño_lote,cantidad_disponible):
     for i in range(len(self.piezas)):
