@@ -1,10 +1,10 @@
 class Pieza:
-    def __init__(self,codigo,descripcion,costo,tamaño_lote,cantidad_disponible):
+    def __init__(self,codigo,descripcion,costo,tamaño_lote):
         self.__codigo = codigo
         self.__descripcion = descripcion
         self.__costo = costo
         self.__tamaño_lote = tamaño_lote
-        self.__cantidad_disponible = cantidad_disponible
+        self.__cantidad_disponible = 0
 
     @property
     def codigo(self):
@@ -45,19 +45,6 @@ class Pieza:
     @cantidad_disponible.setter
     def cantidad_disponible(self,cantidad_disponible):
         self.cantidad_disponible = cantidad_disponible
-
-
-        
-
-    
-    
-    def agregar_stock(self,cantidad):
-        self.cantidad_disponible += cantidad
-
-    def quitar_stock(self,cantidad):
-        if cantidad > self.cantidad_disponible:
-            raise ValueError("No hay suficiente stock disponible")
-        self.cantidad_disponible -= cantidad   
 
    
     
