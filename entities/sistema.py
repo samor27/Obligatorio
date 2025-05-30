@@ -40,6 +40,9 @@ class Sistema:
         self.agregar_clientes(nombre_completo)
 
   def reponer (self):
+     for i in range (len(self.piezas)):
+        p=self.piezas[i]
+        print(f"Código: {p.codigo}, Descripción: {p.descripcion}")
      codigo = int(input ("Ingrese el código de la píeza a reponer "))
      pieza_a_reponer = None
      for pieza in self.piezas:
