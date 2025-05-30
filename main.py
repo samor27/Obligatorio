@@ -35,7 +35,6 @@ if __name__ == "__main__":
                 descripcion = input("Ingrese la descripción de la pieza: ")
                 costo = float(input("Ingrese el costo de la pieza: "))
                 tamaño_lote = int(input("Ingrese el tamaño del lote: "))
-                cantidad_disponible = int(input("Ingrese la cantidad disponible: "))
                 sistema.registrar_pieza(descripcion, costo, tamaño_lote, cantidad_disponible)
             if regis == 3:
                 print("1. Empresa \
@@ -51,6 +50,9 @@ if __name__ == "__main__":
                 maquina = Sistema.select_maquina()
                 estado, fecha_entregado = Sistema.entrega(stock)
                 Sistema.registrar_pedido(clientes, maquina, fecha_entregado, estado)
+            if regis == 5:
+                print()
+                sistema.reponer()
             if regis == 6:
                 break
                 
