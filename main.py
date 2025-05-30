@@ -51,7 +51,6 @@ if __name__ == "__main__":
                 estado, fecha_entregado = Sistema.entrega(stock)
                 Sistema.registrar_pedido(clientes, maquina, fecha_entregado, estado)
             if regis == 5:
-                print()
                 sistema.reponer()
             if regis == 6:
                 break
