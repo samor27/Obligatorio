@@ -36,7 +36,7 @@ class Pieza:
     
     @tamaño_lote.setter
     def tamaño_lote(self,tamaño_lote):
-        self.tamaño_lote = tamaño_lote
+        self.__tamaño_lote = tamaño_lote
 
     @property
     def cantidad_disponible(self):
@@ -44,7 +44,7 @@ class Pieza:
     
     @cantidad_disponible.setter
     def cantidad_disponible(self,cantidad_disponible):
-        self.cantidad_disponible = cantidad_disponible
+        self.__cantidad_disponible = cantidad_disponible
 
    
     
