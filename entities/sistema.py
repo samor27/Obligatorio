@@ -71,7 +71,7 @@ class Sistema:
     for i in range (len(self.piezas)):
         if self.piezas[i].codigo == codigo:
             return self.piezas[i]
-    raise ValueError("Pieza no encontrada")
+    return None
   
   def reponer_pieza(self,codigo,cantidad_lotes):
     pieza = self.buscar_pieza_por_codigo(codigo)
