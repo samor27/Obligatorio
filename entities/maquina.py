@@ -21,12 +21,7 @@ class Maquina:
     def descripcion(self,descripcion):
         self.__descripcion = descripcion    
     
-    @property
-    def requerimientos(self):
-        return self.__requerimientos
-    @requerimientos.setter
-    def requerimientos(self,requerimientos):
-        self.__requerimientos = requerimientos
+    
 
     def nuevo_requerimiento(self,pieza,cantidad):
         nuevo_req = Requerimiento(pieza,cantidad)
