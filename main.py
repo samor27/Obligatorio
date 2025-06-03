@@ -36,6 +36,31 @@ if __name__ == "__main__":
                 costo = float(input("Ingrese el costo de la pieza: "))
                 tamaño_lote = int(input("Ingrese el tamaño del lote: "))
                 sistema.registrar_pieza(descripcion, costo, tamaño_lote, cantidad_disponible)
+            
+            if regis == 2:
+                descripcion = input("Ingrese la descripción de la maquina: ")
+
+                if len(sistema.piezas) == 0:
+                    print("No hay piezas registradas en el sistema")
+                else:
+                    print("Piezas disponibles: ")
+                    for i in range(len(sistema.piezas)):
+                        pieza = sistema.piezas[i]
+                        print(f"Código: {pieza.codigo} - Descripción: {pieza.descripcion}")
+                    
+                    cantidad_requerimientos = int(input("¿Cuántas piezas diferentes va a requerir esta máquina?: "))
+
+                    codigos_piezas = []
+                    cantidades = []
+                
+                    for i in range(cantidad_requerimientos):
+                        print("Requerimiento :", i+1)
+                        codigo = int(input("Ingresa el codigo de la pieza: "))
+                        cantidad = int(input("Cantidad necesaria: "))
+                        codigos_piezas.append(codigo)
+                        cantidades.append(cantidad)
+                    sistema.registrar_maquina(descripcion, codigos_piezas,cantidades)    
+            
             if regis == 3:
                 print("1. Empresa \
                 2. Particular \
@@ -70,6 +95,9 @@ if __name__ == "__main__":
             if lis == 1:
                 sistema.listar_emp()
                 sistema.listar_par()
+
+            if lis == 3:
+                sistema.listar_maquinas()
             
             if lis == 4:
                 sistema.listar_piezas()
