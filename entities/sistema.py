@@ -11,9 +11,8 @@ class Sistema:
       self.pedidos=[]
       self.max_clientes= 1
       self.codigo_pieza = 1
-      self.codigo_maquina = 1
   
- def agregar_clientes(self,cliente: Cliente):
+  def agregar_clientes(self,cliente: Cliente):
     self.clientes.append(cliente)
 
   def listar_emp(self):
@@ -135,36 +134,3 @@ class Sistema:
         Maquina = self.maquinas[i]
         for j in range (len(stock)):
            if stock[j] == (Maquina.Requerimiento.pieza):
-#MAQUINA
-  def registrar_maquina(self,descripcion,codigos_piezas,cantidades):
-    for i in range(len(self.maquinas)):
-        if self.maquinas[i].descripcion.lower() == descripcion.lower():
-          raise Exception("Ya existe una maquina con esa descripcion")
-        
-      
-    nueva_maquina = Maquina(self.codigo_maquina,descripcion)
-    
-    for i in range(len(codigos_piezas)):
-      codigo = codigos_piezas[i]
-      cantidad = cantidades[i]
-
-      pieza = self.buscar_pieza_por_codigo(codigo)
-
-      if pieza is not None:
-          nueva_maquina.nuevo_requerimiento(pieza,cantidad)
-      else:
-         print("La pieza con el codigo",codigo,"no fue encontrada.")
-
-    nueva_maquina.calcular_costo_produccion()
-    self.maquinas.append(nueva_maquina)
-    self.codigo_maquina += 1
-
-
-  def listar_maquinas(self):
-    if not self.maquinas:
-        print("No hay maquinas registradas")
-    else: 
-       for i in range(len(self.maquinas)):
-          maquina = self.maquinas[i]
-          print(f"Código: {maquina.codigo}, Descripción: {maquina.descripcion}, Costo: ${maquina.costo_produccion}")
-          
