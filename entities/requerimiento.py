@@ -1,5 +1,6 @@
+from entities.pieza import Pieza
 class Requerimiento:
-    def __init__(self,pieza,cantidad):
+    def __init__(self,pieza:Pieza,cantidad):
         self.__pieza = pieza
         self.__cantidad = cantidad
     @property

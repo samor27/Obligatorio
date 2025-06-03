@@ -2,6 +2,7 @@ from entities.pedido import Pedido
 from entities.maquina import Maquina
 from entities.cliente import Cliente
 from entities.requerimiento import Requerimiento
+from entities.pieza import Pieza
 import datetime 
 class Sistema:
   def __init__(self):
@@ -129,8 +130,9 @@ class Sistema:
           "Pruebe de nuevo")
 
     
-  def entrega(self):
-     for i in range (len(self.maquinas)):
-        Maquina = self.maquinas[i]
-        for j in range (len(stock)):
-           if stock[j] == (Maquina.Requerimiento.pieza):
+  def entrega(self, maquina):
+    for j in range(len(maquina.requerimientos)):
+      if maquina.requerimientos[j].cantidad <= maquina.requerimientos[j].pieza.cantidad_disponible:
+         
+       
+       
