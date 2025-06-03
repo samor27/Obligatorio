@@ -11,7 +11,7 @@ class Sistema:
       self.pedidos=[]
       self.max_clientes= 1
       self.codigo_pieza = 1
-  
+      self.codigo_maquina = 1
   def agregar_clientes(self,cliente: Cliente):
     self.clientes.append(cliente)
 
