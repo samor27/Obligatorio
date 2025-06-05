@@ -2,7 +2,8 @@ from entities.pedido import Pedido
 from entities.maquina import Maquina
 from entities.cliente import Cliente
 from entities.requerimiento import Requerimiento
-from entities.pieza import Pieza
+from exceptions.cedula_invalida import CedulaInvalida
+from exceptions.telefono_invalido import TelefonoInvalido
 import datetime 
 class Sistema:
   def __init__(self):
@@ -39,6 +40,15 @@ class Sistema:
         self.max_clientes+=1
         nombre_completo=Particular(ID,telefono,correo,cedula, nombre_completo)
         self.agregar_clientes(nombre_completo)
+ 
+  def validar_cedula(self, ci):
+     if len(str(ci))!=8:
+        raise CedulaInvalida()
+     if ci is str:
+        raise TypeError
+  def validar_telefono(self,tel):
+     if len(str(tel))!=8:
+        raise TelefonoInvalido
 
   def reponer (self):
      for i in range (len(self.piezas)):
