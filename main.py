@@ -100,7 +100,8 @@ if __name__ == "__main__":
             if regis == 4:
                 clientes = Sistema.select_cliente()
                 maquina = Sistema.select_maquina()
-                estado, fecha_entregado = Sistema.entrega(stock)
+                estado, lista_piezas_faltantes = Sistema.entrega(maquina)
+                fecha_entregado = Sistema.fecha_entrega(estado)
                 Sistema.registrar_pedido(clientes, maquina, fecha_entregado, estado)
             if regis == 5:
                 sistema.reponer()
@@ -122,6 +123,9 @@ if __name__ == "__main__":
             if lis == 1:
                 sistema.listar_emp()
                 sistema.listar_par()
+            
+            if lis == 2:
+                sistema.listar_pedidos()
 
             if lis == 3:
                 sistema.listar_maquinas()

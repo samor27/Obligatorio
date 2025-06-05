@@ -102,10 +102,11 @@ class Sistema:
   
   #Pedido
   def registrar_pedido(self, cliente, maquina, fecha_entregado, estado):
-      cliente = Pedido(cliente, maquina, fecha_entregado, estado)
-      self.pedidos.append(cliente)
+      pedido = Pedido(cliente, maquina, fecha_entregado, estado)
+      self.pedidos.append(pedido)
 
-  
+  ########################### Cambie pedido arriba x si no funciona #########################
+
   def select_cliente(self):
       print ("Clientes: ") #Lista de clientes
       for i in range (len(self.clientes)):
@@ -142,8 +143,63 @@ class Sistema:
 
     
   def entrega(self, maquina):
+    piezas_faltantes = []
     for j in range(len(maquina.requerimientos)):
-      if maquina.requerimientos[j].cantidad <= maquina.requerimientos[j].pieza.cantidad_disponible:
+      pieza_cantidad = []
+      if maquina.requerimientos[j].cantidad > maquina.requerimientos[j].pieza.cantidad_disponible:
+        diferencia = (maquina.requerimientos[j].cantidad - maquina.requerimientos[j].pieza.cantidad_disponible)
+        pieza_cantidad.append((maquina.requerimientos[j].pieza), (diferencia))
+        piezas_faltantes.append(pieza_cantidad)
+    if len(piezas_faltantes) == 0:
+       return "entregado", piezas_faltantes
+    else:
+       return "pendiente", piezas_faltantes
+    
+  def fecha_entrega(estado):
+     if estado == "pendiente":
+        return "pendiente"
+     else:
+        return datetime.now()
+     
+  def listar_pedidos(self):
+    if not self.pedidos:
+      print("No hay pedidos registrados")
+    else:
+      print("Desesa filtrar los pedidos en 'Entregados' y 'Pendientes'?")
+      filtro = input("si/no")
+      while filtro != "si" or "no":
+        print("Entrada no valida. Pruebe nuevamente:")
+        print("Desesa filtrar los pedidos en 'Entregados' y 'Pendientes'?")
+        filtro = input("si/no")
+      if filtro == "si":
+        entregados = []
+        pendientes = []
+        for i in range(len(self.pedidos)):
+          if self.pedidos[i].estado == "entregado":
+            entregados.append(self.pedidos[i])
+          else:
+            pendientes.append(self.pedidos[i])
+        print("Entregados:")
+        for j in range (len(entregados)):
+          print(f"Cliente: [{entregados[j].cliente.ID}], Maquina: [{entregados[j].maquina.descripcion}], "
+                f"Fecha recibido: [{entregados[j].fecha_recibido}], Fecha entregado: [{entregados[j].fecha_entregado}], "
+                f"Estado: [{entregados[j].estado}], Precio: [{entregados[j].precio}]")
+        print("Pendientes:")
+        for k in range (len(pendientes)):
+          print(f"Cliente: [{pendientes[k].cliente.ID}], Maquina: [{pendientes[k].maquina.descripcion}], "
+                f"Fecha recibido: [{pendientes[k].fecha_recibido}], Fecha entregado: [{pendientes[k].fecha_entregado}], "
+                f"Estado: [{pendientes[k]}], Precio: [{pendientes[k].precio}]")
+      if filtro == "no":
+         for l in range(self.pedidos):
+            print(f"Cliente: [{self.pedidos[l].cliente.ID}], Maquina: [{self.pedidos[l].maquina.descripcion}], "
+                 f"Fecha recibido: [{self.pedidos[l].fecha_recibido}], Fecha entregado: [{self.pedidos[l].fecha_entregado}], "
+                 f"Estado: [{self.pedidos[l]}], Precio: [{self.pedidos[l].precio}]")
+            
+
+           
+
+
+     
 
 #Maquina
 
