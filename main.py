@@ -62,14 +62,41 @@ if __name__ == "__main__":
                     sistema.registrar_maquina(descripcion, codigos_piezas,cantidades)    
             
             if regis == 3:
-                print("1. Empresa \
-                2. Particular \
-                ")
-                rcli = int(input())
-                if rcli == 1:
-                    sistema.registrar_empresa(int(input("Ingrese el télefono ")),input("Ingrese el correo "), int(input("Ingrese el RUT ")), input("Ingrese el nombre "), input ("Ingrese la página web "))
-                else:
-                    sistema.registrar_particular (int(input("Ingrese el télefono ")), input("Ingrese el correo "), int(input("Ingrese la cédula " )), input ("Ingrese su nombre completo ")   )            
+            print("1. Empresa \
+            2. Particular \
+            ")
+            rcli = int(input())
+            if rcli == 1:
+                sistema.registrar_empresa(int(input("Ingrese el télefono ")),input("Ingrese el correo "), int(input("Ingrese el RUT ")), input("Ingrese el nombre "), input ("Ingrese la página web "))
+            else:
+                cedula_invalida=True
+                while cedula_invalida:
+                    while True:
+                        try:
+                            ci = int(input("Ingrese la cédula " ))
+                            break
+                        except:
+                            print("La cédula debe ser un número ")
+                    try: 
+                        sistema.validar_cedula(ci)
+                        cedula_invalida = False
+                    except:
+                        print ("La cédula es inválida, vuelve a ingresarla")
+                telefono_invalido=True
+                while telefono_invalido:
+                    while True:
+                        try:
+                            tel= int(input("Ingrese el télefono "))
+                            break
+                        except:
+                            print("El telefóno debe ser un número")
+                    try:
+                        sistema.validar_telefono(tel)
+                        telefono_invalido=False
+                    except: 
+                        print("El télefono es inválido, vuelva a ingresarlo ")
+                sistema.registrar_particular (tel, input("Ingrese el correo "), ci, input ("Ingrese su nombre completo "))    
+                
             if regis == 4:
                 clientes = Sistema.select_cliente()
                 maquina = Sistema.select_maquina()
