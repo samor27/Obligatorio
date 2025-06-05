@@ -4,6 +4,7 @@ from entities.cliente import Cliente
 from entities.requerimiento import Requerimiento
 from exceptions.cedula_invalida import CedulaInvalida
 from exceptions.telefono_invalido import TelefonoInvalido
+from entities.pieza import Pieza
 import datetime 
 class Sistema:
   def __init__(self):
