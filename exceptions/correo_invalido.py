@@ -1,0 +1,2 @@
+class CorreoInvalido(Exception):
+    pass
