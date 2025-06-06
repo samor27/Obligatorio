@@ -22,6 +22,7 @@ class Sistema:
       self.codigo_pieza = 1
       self.codigo_maquina = 1
       self.costos = 0 
+      self.ingresos = 0 
 
 #Clientes
   
@@ -144,7 +145,7 @@ class Sistema:
   def registrar_pedido(self, cliente, maquina, fecha_entregado, estado):
       pedido = Pedido(cliente, maquina, fecha_entregado, estado)
       self.pedidos.append(pedido)
-      self.costos += maquina.costo_produccion 
+      self.ingresos +=pedido.precio
     
   def select_cliente(self):
       print ("Clientes: ") #Lista de clientes
@@ -261,11 +262,26 @@ class Sistema:
     self.codigo_maquina += 1
 
 
-  def listar_maquinas(self):
+  def listar_maquinas (self):
     if not self.maquinas:
         print("No hay maquinas registradas")
     else: 
        for i in range(len(self.maquinas)):
           maquina = self.maquinas[i]
           print(f"Código: {maquina.codigo}, Descripción: {maquina.descripcion}, Costo: ${maquina.costo_produccion}")
-          
+
+#CONTABILIDAD
+
+ def contabilidad (self):
+   for i in range(len(self.pedidos)):
+     if self.pedidos[i].estado == "entregado":
+        self.costos += pedidos[i].maquina.costos_produccion
+   print (("El costo total de las máquinas vendidadas es "), (self.costos))
+   print  ("El total de ingresos es ", (self.ingresos))
+   ganancias = self.ingresos - self.costos
+   print ("La ganancia es ", ganancias) 
+   gan_IRAE = ganancias*0.25
+   gan_final=ganancias*0.75
+   print ("El impuesto a las ganancias es de ", gan_IRAE)
+   print ("La ganancia final es de ", gan_final)
+   
