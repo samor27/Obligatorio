@@ -207,6 +207,9 @@ if __name__ == "__main__":
             if lis == 4:
                 sistema.listar_piezas()
 
+            if lis == 5:
+                sistema.contabilidad()
+
             if lis == 6:
                 break
         
