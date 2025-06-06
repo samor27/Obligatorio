@@ -14,6 +14,8 @@ class Sistema:
       self.max_clientes= 1
       self.codigo_pieza = 1
       self.codigo_maquina = 1
+
+#Clientes
   def agregar_clientes(self,cliente: Cliente):
     self.clientes.append(cliente)
 
@@ -50,6 +52,8 @@ class Sistema:
      if len(str(tel))!=8:
         raise TelefonoInvalido
 
+#REPONER
+  
   def reponer (self):
      for i in range (len(self.piezas)):
         p=self.piezas[i]
@@ -69,6 +73,9 @@ class Sistema:
      pieza.cantidad_disponible +=repo.cantidad_lotes
      print("Reposición realizada.")
 
+
+#PIEZAS
+  
   def registrar_pieza(self,descripcion,costo,tamaño_lote,cantidad_disponible):
     for i in range(len(self.piezas)):
           if self.piezas[i].descripcion.lower() == descripcion.lower():
