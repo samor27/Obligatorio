@@ -5,6 +5,13 @@ from exceptions.cedula_invalida import CedulaInvalida
 from exceptions.telefono_invalido import TelefonoInvalido
 from entities.pieza import Pieza
 import datetime 
+from exceptions.cedula_invalida import CedulaInvalida
+from exceptions.telefono_invalido import TelefonoInvalido
+from exceptions.cliente_ya_existe import ClienteYaExiste
+from exceptions.rut_invalido import Rut_invalido
+from exceptions.correo_invalido import CorreoInvalido
+from exceptions.pagina_invalida import PaginaInvalida
+
 class Sistema:
   def __init__(self):
       self.clientes=[]
@@ -16,6 +23,7 @@ class Sistema:
       self.codigo_maquina = 1
 
 #Clientes
+  
   def agregar_clientes(self,cliente: Cliente):
     self.clientes.append(cliente)
 
@@ -42,15 +50,40 @@ class Sistema:
         self.max_clientes+=1
         nombre_completo=Particular(ID,telefono,correo,cedula, nombre_completo)
         self.agregar_clientes(nombre_completo)
- 
+
   def validar_cedula(self, ci):
      if len(str(ci))!=8:
         raise CedulaInvalida()
      if ci is str:
         raise TypeError
+     
   def validar_telefono(self,tel):
      if len(str(tel))!=8:
         raise TelefonoInvalido
+     if str(tel)[0]!="2":
+        raise TelefonoInvalido
+     
+  def validar_empresa(self,nom):
+      for i in range(len(self.clientes)):
+         if self.clientes[i].nombre.lower().replace(" ","") == nom.lower().replace(" ",""):
+            raise ClienteYaExiste 
+  
+  def validar_particular(self,nom):
+       for i in range(len(self.clientes)):
+          if self.clientes[i].nombre_completo.lower() == nom.lower():
+             raise ClienteYaExiste
+          
+  def validar_rut(self, RUT):
+     if len(str(RUT))!=12:
+        raise Rut_invalido
+   
+  def validar_correo (self,correo):
+     if "@" not in correo or "mail.com" not in correo:
+        raise CorreoInvalido
+  
+  def validar_pagina(self,pagina):
+     if ".com" not in pagina:
+        raise PaginaInvalida
 
 #REPONER
   
