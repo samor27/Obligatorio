@@ -1,15 +1,16 @@
 from entities.cliente import Cliente
+from entities.cliente import Empresa
 from entities.maquina import Maquina
 import datetime
 #import costo_de_produccion from Maquina
 class Pedido:
-    def __init__(self, cliente: Cliente, maquina: Maquina, fecha_entregado, estado):
+    def __init__(self, cliente: Cliente, maquina: Maquina, fecha_entregado, estado, pedido=0):
         self.__cliente = cliente
         self.__maquina = maquina
         self.__fecha_recibido = datetime.now()
         self.__fecha_entregado = fecha_entregado
         self.__estado = estado #pendiente o entregado
-        self.__precio = 0
+
     
     @property
     def cliente (self):
@@ -52,17 +53,7 @@ class Pedido:
         self.__estado = estado
 
 
-    @property
-    def precio(self):
-        return self.__precio
-    
-    @precio.setter
-    def precio (self, costo_produccion):
-        pre = (costo_produccion + (costo_produccion*0.5))
-        # if self.cliente == Empresa:
-        #     self.__precio = pre*0,8
-        # else:
-        #     self.__precio = pre
+
 
 
 

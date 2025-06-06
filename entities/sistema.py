@@ -1,6 +1,7 @@
 from entities.pedido import Pedido
 from entities.maquina import Maquina
 from entities.cliente import Cliente
+from entities.cliente import Empresa
 from exceptions.cedula_invalida import CedulaInvalida
 from exceptions.telefono_invalido import TelefonoInvalido
 from entities.pieza import Pieza
@@ -201,6 +202,12 @@ class Sistema:
      else:
         return datetime.now()
      
+  def pre (cliente, maquina):
+    pre = (maquina.costo_produccion *1,5)
+    if isinstance(cliente, Empresa):
+      pre = pre*0,8
+    return pre
+     
   def listar_pedidos(self):
     if not self.pedidos:
       print("No hay pedidos registrados")
@@ -272,10 +279,10 @@ class Sistema:
 
 #CONTABILIDAD
 
- def contabilidad (self):
+  def contabilidad (self):
    for i in range(len(self.pedidos)):
      if self.pedidos[i].estado == "entregado":
-        self.costos += pedidos[i].maquina.costos_produccion
+        self.costos += self.pedidos[i].maquina.costos_produccion
    print (("El costo total de las máquinas vendidadas es "), (self.costos))
    print  ("El total de ingresos es ", (self.ingresos))
    ganancias = self.ingresos - self.costos

@@ -176,7 +176,7 @@ if __name__ == "__main__":
                 maquina = Sistema.select_maquina()
                 estado, lista_piezas_faltantes = Sistema.entrega(maquina)
                 fecha_entregado = Sistema.fecha_entrega(estado)
-                Sistema.registrar_pedido(clientes, maquina, fecha_entregado, estado)
+                precio = Sistema.pre(clientes, maquina)
             if regis == 5:
                 sistema.reponer()
             if regis == 6:
