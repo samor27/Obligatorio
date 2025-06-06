@@ -35,11 +35,10 @@ if __name__ == "__main__":
                 descripcion = input("Ingrese la descripción de la pieza: ")
                 costo = float(input("Ingrese el costo de la pieza: "))
                 tamaño_lote = int(input("Ingrese el tamaño del lote: "))
-                sistema.registrar_pieza(descripcion, costo, tamaño_lote, cantidad_disponible)
+                sistema.registrar_pieza(descripcion, costo, tamaño_lote)
             
             if regis == 2:
-               descripcion = input("Ingrese la descripción de la maquina: ")
-
+                descripcion = input("Ingrese la descripción de la maquina: ")
                 if len(sistema.piezas) == 0:
                     print("No hay piezas registradas en el sistema")
                 else:
@@ -64,7 +63,7 @@ if __name__ == "__main__":
                     sistema.registrar_maquina(descripcion, codigos_piezas,cantidades)
             
             if regis == 3:
-            print("1. Empresa \
+                print("1. Empresa \
             2. Particular \
             ")
             rcli = int(input())

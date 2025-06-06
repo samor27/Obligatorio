@@ -1,7 +1,6 @@
 from entities.pedido import Pedido
 from entities.maquina import Maquina
 from entities.cliente import Cliente
-from entities.requerimiento import Requerimiento
 from exceptions.cedula_invalida import CedulaInvalida
 from exceptions.telefono_invalido import TelefonoInvalido
 from entities.pieza import Pieza
@@ -66,7 +65,7 @@ class Sistema:
         print("Pieza no encontrada.")
         return
      cantidad_lotes = int(input("Ingrese la cantidad a reponer: "))
-     repo= Reposición(pieza_a_reponer, cantidad_lotes)
+     repo = Reposición(pieza_a_reponer, cantidad_lotes)
      pieza.cantidad_disponible +=repo.cantidad_lotes
      print("Reposición realizada.")
 
