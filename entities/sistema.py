@@ -21,6 +21,7 @@ class Sistema:
       self.max_clientes= 1
       self.codigo_pieza = 1
       self.codigo_maquina = 1
+      self.costos = 0 
 
 #Clientes
   
@@ -143,9 +144,8 @@ class Sistema:
   def registrar_pedido(self, cliente, maquina, fecha_entregado, estado):
       pedido = Pedido(cliente, maquina, fecha_entregado, estado)
       self.pedidos.append(pedido)
-
-  ########################### Cambie pedido arriba x si no funciona #########################
-
+      self.costos += maquina.costo_produccion 
+    
   def select_cliente(self):
       print ("Clientes: ") #Lista de clientes
       for i in range (len(self.clientes)):
@@ -234,11 +234,6 @@ class Sistema:
                  f"Fecha recibido: [{self.pedidos[l].fecha_recibido}], Fecha entregado: [{self.pedidos[l].fecha_entregado}], "
                  f"Estado: [{self.pedidos[l]}], Precio: [{self.pedidos[l].precio}]")
             
-
-           
-
-
-     
 
 #Maquina
 
