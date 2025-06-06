@@ -32,13 +32,13 @@ class Sistema:
   def registrar_empresa(self,telefono,correo,RUT,nombre,pagina_web):
         ID=self.max_clientes
         self.max_clientes +=1
-        nombre=Empresa(ID,telefono,correo,RUT,nombre,pagina_web)
+        nombre= Empresa(ID,telefono,correo,RUT,nombre,pagina_web)
         self.agregar_clientes(nombre)
 
   def registrar_particular(self, telefono,correo,cedula,nombre_completo):
         ID = self.max_clientes
         self.max_clientes+=1
-        nombre_completo=Particular(ID,telefono,correo,cedula, nombre_completo)
+        nombre_completo= Particular(ID,telefono,correo,cedula, nombre_completo)
         self.agregar_clientes(nombre_completo)
  
   def validar_cedula(self, ci):
