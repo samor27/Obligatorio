@@ -38,28 +38,30 @@ if __name__ == "__main__":
                 sistema.registrar_pieza(descripcion, costo, tamaño_lote, cantidad_disponible)
             
             if regis == 2:
-                descripcion = input("Ingrese la descripción de la maquina: ")
+               descripcion = input("Ingrese la descripción de la maquina: ")
 
                 if len(sistema.piezas) == 0:
                     print("No hay piezas registradas en el sistema")
                 else:
-                    print("Piezas disponibles: ")
-                    for i in range(len(sistema.piezas)):
-                        pieza = sistema.piezas[i]
-                        print(f"Código: {pieza.codigo} - Descripción: {pieza.descripcion}")
-                    
-                    cantidad_requerimientos = int(input("¿Cuántas piezas diferentes va a requerir esta máquina?: "))
-
                     codigos_piezas = []
                     cantidades = []
-                
-                    for i in range(cantidad_requerimientos):
-                        print("Requerimiento :", i+1)
-                        codigo = int(input("Ingresa el codigo de la pieza: "))
-                        cantidad = int(input("Cantidad necesaria: "))
+                    
+                    seguir = "si"
+                    while seguir.lower() == "si":
+                        print("Piezas disponibles: ")
+                        for i in range(len(sistema.piezas)):
+                            pieza = sistema.piezas[i]
+                            print(f"Código: {pieza.codigo} - {pieza.descripcion}")
+                    
+                        codigo = int(input("Ingrese el código de la pieza a agregar: "))
+                        cantidad = int(input("Cantidad necesaria de esa pieza: "))
+                    
                         codigos_piezas.append(codigo)
                         cantidades.append(cantidad)
-                    sistema.registrar_maquina(descripcion, codigos_piezas,cantidades)    
+
+                        seguir =input("¿Desea agregar otra pieza? (si/no): ")
+                    
+                    sistema.registrar_maquina(descripcion, codigos_piezas,cantidades)
             
             if regis == 3:
             print("1. Empresa \
