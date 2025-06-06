@@ -5,6 +5,13 @@ from exceptions.cedula_invalida import CedulaInvalida
 from exceptions.telefono_invalido import TelefonoInvalido
 from entities.pieza import Pieza
 import datetime 
+from exceptions.cedula_invalida import CedulaInvalida
+from exceptions.telefono_invalido import TelefonoInvalido
+from exceptions.cliente_ya_existe import ClienteYaExiste
+from exceptions.rut_invalido import Rut_invalido
+from exceptions.correo_invalido import CorreoInvalido
+from exceptions.pagina_invalida import PaginaInvalida
+
 class Sistema:
   def __init__(self):
       self.clientes=[]
@@ -14,6 +21,11 @@ class Sistema:
       self.max_clientes= 1
       self.codigo_pieza = 1
       self.codigo_maquina = 1
+      self.costos = 0 
+      self.ingresos = 0 
+
+#Clientes
+  
   def agregar_clientes(self,cliente: Cliente):
     self.clientes.append(cliente)
 
@@ -40,16 +52,43 @@ class Sistema:
         self.max_clientes+=1
         nombre_completo= Particular(ID,telefono,correo,cedula, nombre_completo)
         self.agregar_clientes(nombre_completo)
- 
+
   def validar_cedula(self, ci):
      if len(str(ci))!=8:
         raise CedulaInvalida()
      if ci is str:
         raise TypeError
+     
   def validar_telefono(self,tel):
      if len(str(tel))!=8:
         raise TelefonoInvalido
+     if str(tel)[0]!="2":
+        raise TelefonoInvalido
+     
+  def validar_empresa(self,nom):
+      for i in range(len(self.clientes)):
+         if self.clientes[i].nombre.lower().replace(" ","") == nom.lower().replace(" ",""):
+            raise ClienteYaExiste 
+  
+  def validar_particular(self,nom):
+       for i in range(len(self.clientes)):
+          if self.clientes[i].nombre_completo.lower() == nom.lower():
+             raise ClienteYaExiste
+          
+  def validar_rut(self, RUT):
+     if len(str(RUT))!=12:
+        raise Rut_invalido
+   
+  def validar_correo (self,correo):
+     if "@" not in correo or "mail.com" not in correo:
+        raise CorreoInvalido
+  
+  def validar_pagina(self,pagina):
+     if ".com" not in pagina:
+        raise PaginaInvalida
 
+#REPONER
+  
   def reponer (self):
      for i in range (len(self.piezas)):
         p=self.piezas[i]
@@ -69,6 +108,9 @@ class Sistema:
      pieza.cantidad_disponible +=repo.cantidad_lotes
      print("Reposición realizada.")
 
+
+#PIEZAS
+  
   def registrar_pieza(self,descripcion,costo,tamaño_lote,cantidad_disponible):
     for i in range(len(self.piezas)):
           if self.piezas[i].descripcion.lower() == descripcion.lower():
@@ -103,9 +145,8 @@ class Sistema:
   def registrar_pedido(self, cliente, maquina, fecha_entregado, estado):
       pedido = Pedido(cliente, maquina, fecha_entregado, estado)
       self.pedidos.append(pedido)
-
-  ########################### Cambie pedido arriba x si no funciona #########################
-
+      self.ingresos +=pedido.precio
+    
   def select_cliente(self):
       print ("Clientes: ") #Lista de clientes
       for i in range (len(self.clientes)):
@@ -195,11 +236,6 @@ class Sistema:
                  f"Estado: [{self.pedidos[l]}], Precio: [{self.pedidos[l].precio}]")
             
 
-           
-
-
-     
-
 #Maquina
 
   def registrar_maquina(self,descripcion,codigos_piezas,cantidades):
@@ -226,11 +262,26 @@ class Sistema:
     self.codigo_maquina += 1
 
 
-  def listar_maquinas(self):
+  def listar_maquinas (self):
     if not self.maquinas:
         print("No hay maquinas registradas")
     else: 
        for i in range(len(self.maquinas)):
           maquina = self.maquinas[i]
           print(f"Código: {maquina.codigo}, Descripción: {maquina.descripcion}, Costo: ${maquina.costo_produccion}")
-          
+
+#CONTABILIDAD
+
+ def contabilidad (self):
+   for i in range(len(self.pedidos)):
+     if self.pedidos[i].estado == "entregado":
+        self.costos += pedidos[i].maquina.costos_produccion
+   print (("El costo total de las máquinas vendidadas es "), (self.costos))
+   print  ("El total de ingresos es ", (self.ingresos))
+   ganancias = self.ingresos - self.costos
+   print ("La ganancia es ", ganancias) 
+   gan_IRAE = ganancias*0.25
+   gan_final=ganancias*0.75
+   print ("El impuesto a las ganancias es de ", gan_IRAE)
+   print ("La ganancia final es de ", gan_final)
+   
