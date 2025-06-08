@@ -162,6 +162,9 @@ class Sistema:
          self.pendiente.append(v)
     
   def select_cliente(self):
+      if len(self.clientes)==0:
+         print ("Aun no hay Clientes registrados")
+         return False
       print ("Clientes: ") #Lista de clientes
       for i in range (len(self.clientes)):
         Cliente = self.clientes[i]
@@ -179,6 +182,9 @@ class Sistema:
 
 
   def select_maquina(self):
+      if len(self.maquinas)==0:
+         print ("Aun no hay Maquinas registradas")
+         return False
       print("Maquinas: ") #Lista de Maquinas
       for i in range (self.maquinas):
         Maquina = self.maquina[i]
@@ -228,7 +234,7 @@ class Sistema:
 
      
   def listar_pedidos(self):
-    if not self.pedidos:
+    if len(self.pedidos)==0:
       print("No hay pedidos registrados")
     else:
       print("Desesa filtrar los pedidos en 'Entregados' y 'Pendientes'?")

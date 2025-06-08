@@ -1,8 +1,6 @@
 from entities.cliente import Cliente
-from entities.cliente import Empresa
 from entities.maquina import Maquina
 import datetime
-#import costo_de_produccion from Maquina
 class Pedido:
     def __init__(self, cliente: Cliente, maquina: Maquina, fecha_entregado, estado, pedido=0):
         self.__cliente = cliente

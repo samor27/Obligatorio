@@ -173,7 +173,11 @@ if __name__ == "__main__":
                 
             if regis == 4:
                 clientes = Sistema.select_cliente()
+                if clientes == False:
+                    break
                 maquina = Sistema.select_maquina()
+                if maquina == False:
+                    break
                 estado, lista_piezas_faltantes = Sistema.entrega(maquina)
                 fecha_entregado = Sistema.fecha_entrega(estado)
                 precio = Sistema.pre(clientes, maquina)
