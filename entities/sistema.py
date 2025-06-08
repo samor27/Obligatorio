@@ -24,6 +24,7 @@ class Sistema:
       self.codigo_maquina = 1
       self.costos = 0 
       self.ingresos = 0 
+      self.pendiente = []
 
 #Clientes
   
@@ -108,6 +109,7 @@ class Sistema:
      repo = Reposición(pieza_a_reponer, cantidad_lotes)
      pieza.cantidad_disponible +=repo.cantidad_lotes
      print("Reposición realizada.")
+     
 
 
 #PIEZAS
@@ -143,10 +145,13 @@ class Sistema:
 
   
   #Pedido
-  def registrar_pedido(self, cliente, maquina, fecha_entregado, estado):
-      pedido = Pedido(cliente, maquina, fecha_entregado, estado)
+  def registrar_pedido(self, cliente, maquina, fecha_entregado, estado, precio, piezas_faltantes):
+      pedido = Pedido(cliente, maquina, fecha_entregado, estado, precio)
       self.pedidos.append(pedido)
       self.ingresos +=pedido.precio
+      if estado == "pendiente":
+         v=[pedido, piezas_faltantes]
+         self.pendiente.append(v)
     
   def select_cliente(self):
       print ("Clientes: ") #Lista de clientes
@@ -194,8 +199,9 @@ class Sistema:
     if len(piezas_faltantes) == 0:
        return "entregado", piezas_faltantes
     else:
+       maquina.requerimientos[j].pieza.cantidad_disponible -= maquina.requerimientos[j].cantidad
        return "pendiente", piezas_faltantes
-    
+
   def fecha_entrega(estado):
      if estado == "pendiente":
         return "pendiente"

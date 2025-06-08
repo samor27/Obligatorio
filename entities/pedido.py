@@ -9,7 +9,7 @@ class Pedido:
         self.__maquina = maquina
         self.__fecha_recibido = datetime.now()
         self.__fecha_entregado = fecha_entregado
-        self.__estado = estado #pendiente o entregado
+        self.__estado = estado
 
     
     @property
