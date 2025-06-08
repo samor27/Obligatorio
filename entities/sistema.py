@@ -163,17 +163,16 @@ class Sistema:
     
   def select_cliente(self):
       if len(self.clientes)==0:
-         print ("Aun no hay Clientes registrados")
          return False
       print ("Clientes: ") #Lista de clientes
       for i in range (len(self.clientes)):
         Cliente = self.clientes[i]
-        print (f"{i}) {Cliente.ID}")
+        print (f"{i}) {Cliente.correo}")
 
       cond = False
       while cond == False:
-          num = int(input("Introduzca el número de cliente"))
-          for i in range (self.clientes):
+          num = int(input("Introduzca el número de cliente: "))
+          for i in range (len(self.clientes)):
               if num == i:
                 cliente = self.clientes[i]
                 return cliente
@@ -183,10 +182,9 @@ class Sistema:
 
   def select_maquina(self):
       if len(self.maquinas)==0:
-         print ("Aun no hay Maquinas registradas")
          return False
       print("Maquinas: ") #Lista de Maquinas
-      for i in range (self.maquinas):
+      for i in range (len(self.maquinas)):
         Maquina = self.maquina[i]
         print (f"{i}) {Maquina.descripcion}")
 
