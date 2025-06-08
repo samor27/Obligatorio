@@ -32,35 +32,72 @@ if __name__ == "__main__":
             6. Salir ")
             regis = int(input())
             if regis == 1:
-                descripcion = input("Ingrese la descripción de la pieza: ")
+                pieza_existe = True
+                while pieza_existe:
+                    descripcion = input("Ingrese la descripción de la pieza: ")
+                    try:
+                        sistema.validar_descripcion(descripcion, tipo="pieza")
+                        pieza_existe = False    
+                    except Exception as e:
+                        print(e)
                 costo = float(input("Ingrese el costo de la pieza: "))
                 tamaño_lote = int(input("Ingrese el tamaño del lote: "))
+                cantidad_disponible = int(input("Ingrese la cantidad disponible: "))
                 sistema.registrar_pieza(descripcion, costo, tamaño_lote)
             
             if regis == 2:
-                descripcion = input("Ingrese la descripción de la maquina: ")
+                maquina_existe = True
+                while maquina_existe:
+                    descripcion = input("Ingrese la descripción de la maquina: ")
+                    try:
+                        sistema.validar_descripcion(descripcion, tipo="maquina")
+                        maquina_existe = False
+                    except Exception as e:
+                        print(e)
+
+                codigos_piezas = []
+                cantidades = []
+                codigos_usados = []
+
                 if len(sistema.piezas) == 0:
                     print("No hay piezas registradas en el sistema")
                 else:
-                    codigos_piezas = []
-                    cantidades = []
-                    
                     seguir = "si"
                     while seguir.lower() == "si":
                         print("Piezas disponibles: ")
+                        piezas_disponibles = []
+
                         for i in range(len(sistema.piezas)):
                             pieza = sistema.piezas[i]
-                            print(f"Código: {pieza.codigo} - {pieza.descripcion}")
-                    
-                        codigo = int(input("Ingrese el código de la pieza a agregar: "))
-                        cantidad = int(input("Cantidad necesaria de esa pieza: "))
-                    
-                        codigos_piezas.append(codigo)
-                        cantidades.append(cantidad)
+                            esta_usada = False
+                            for j in range(len(codigos_usados)):
+                                if pieza.codigo == codigos_usados[j]:
+                                    esta_usada = True
+                                    break
+                            if not esta_usada:
+                                piezas_disponibles.append(pieza)
+                                print(f"Código: {pieza.codigo} - {pieza.descripcion}")
 
-                        seguir =input("¿Desea agregar otra pieza? (si/no): ")
-                    
-                    sistema.registrar_maquina(descripcion, codigos_piezas,cantidades)
+                        if len(piezas_disponibles) == 0:
+                            print("Ya se usaron todas las piezas.")
+                            break
+
+                        try:
+                            codigo = int(input("Ingrese el código de la pieza a agregar: "))
+                            sistema.codigo_invalido(codigo, piezas_disponibles)
+                            cantidad = int(input("Cantidad necesaria de esa pieza: "))
+
+                            codigos_piezas.append(codigo)
+                            cantidades.append(cantidad)
+                            codigos_usados.append(codigo)
+
+                            seguir = input("¿Desea agregar otra pieza? (si/no): ")
+                        except Exception as e:
+                            print("Codigo invalido o ya usado.")
+                            seguir = "si"
+                if len(codigos_piezas) > 0:
+                    sistema.registrar_maquina(descripcion, codigos_piezas, cantidades)
+            
             
             if regis == 3:
                 print("1. Empresa \
