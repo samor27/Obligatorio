@@ -1,4 +1,4 @@
-from requerimiento import Requerimiento
+from .requerimiento import Requerimiento
 class Maquina:
     def __init__(self,codigo,descripcion):
         self.__codigo = codigo
