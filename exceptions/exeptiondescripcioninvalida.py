@@ -1,0 +1,2 @@
+class DescripcionInvalida(Exception):
+    pass
