@@ -12,6 +12,11 @@ from exceptions.cliente_ya_existe import ClienteYaExiste
 from exceptions.rut_invalido import Rut_invalido
 from exceptions.correo_invalido import CorreoInvalido
 from exceptions.pagina_invalida import PaginaInvalida
+from exceptions.pieza_ya_existe import PiezaYaExiste
+from exceptions.codigo_invalido import CodigoInvalido
+from exceptions.descripcion_invalida import DescripcionInvalida
+from exceptions.maquina_ya_existe import MaquinaYaExiste
+
 
 class Sistema:
   def __init__(self):
@@ -151,6 +156,10 @@ class Sistema:
         pieza = self.piezas[i]
         print(f"Código: {pieza.codigo}, Descripción: {pieza.descripcion}, Costo: {pieza.costo}, Tamaño de lote: {pieza.tamaño_lote}, Cantidad disponible: {pieza.cantidad_disponible}")
 
+  def validar_pieza(self,descripcion):
+      for i in range(len(self.piezas)):
+          if self.piezas[i].descripcion.lower() == descripcion.lower():
+             raise PiezaYaExiste()
   
   #Pedido
   def registrar_pedido(self, cliente, maquina, fecha_entregado, estado, precio, piezas_faltantes):
@@ -269,9 +278,6 @@ class Sistema:
 #Maquina
 
   def registrar_maquina(self,descripcion,codigos_piezas,cantidades):
-    for i in range(len(self.maquinas)):
-        if self.maquinas[i].descripcion.lower() == descripcion.lower():
-          raise Exception("Ya existe una maquina con esa descripcion")
         
       
     nueva_maquina = Maquina(self.codigo_maquina,descripcion)
@@ -300,6 +306,19 @@ class Sistema:
           maquina = self.maquinas[i]
           print(f"Código: {maquina.codigo}, Descripción: {maquina.descripcion}, Costo: ${maquina.costo_produccion}")
 
+  def codigo_invalido(self,codigo,piezas_disponibles):
+    existe_en_sistema = False
+    for i in range(len(self.piezas)):
+      if self.piezas[i].codigo == codigo:
+          existe_en_sistema = True
+          break
+    if not existe_en_sistema:
+       raise CodigoInvalido("El codigo ingresado no corresponde a ninguna pieza registrada.")
+
+    for i in range(len(piezas_disponibles)):
+       if piezas_disponibles[i].codigo == codigo:
+          return
+    raise CodigoInvalido("La pieza ya fue usada o no esta disponible.")
 #CONTABILIDAD
 
   def contabilidad (self):
@@ -314,4 +333,19 @@ class Sistema:
    gan_final=ganancias*0.75
    print ("El impuesto a las ganancias es de ", gan_IRAE)
    print ("La ganancia final es de ", gan_final)
-   
+
+
+
+def validar_descripcion(self, descripcion, tipo="pieza"):
+    if not isinstance(descripcion, str) or descripcion.strip() == "":
+        raise DescripcionInvalida("La descripción no puede estar vacía.")
+    if descripcion.strip().isnumeric():
+        raise DescripcionInvalida("La descripción no puede ser solo números.")
+    if tipo == "pieza":
+        for pieza in self.piezas:
+            if pieza.descripcion.lower() == descripcion.lower():
+                raise PiezaYaExiste("Ya existe una pieza con esa descripción.")
+    elif tipo == "maquina":
+        for maquina in self.maquinas:
+            if maquina.descripcion.lower() == descripcion.lower():
+                raise MaquinaYaExiste("Ya existe una máquina con esa descripción.")
