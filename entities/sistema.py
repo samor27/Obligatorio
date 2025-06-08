@@ -109,7 +109,15 @@ class Sistema:
      repo = Reposición(pieza_a_reponer, cantidad_lotes)
      pieza.cantidad_disponible +=repo.cantidad_lotes
      print("Reposición realizada.")
-     
+     for i in range(len(self.pendiente)):
+        for j in range(len(self.pendiente[i][1])):
+          if pieza == self.pendiente[i][1][j][0]:
+            if pieza.cantidad_disponible >= self.pendiente[i][1][j][1]:
+              pieza.cantidad_disponible -= self.pendiente[i][1][j][1]
+              del self.pendiente[i][1][j]
+          if len(self.pendiente[i][1]) == 0:
+             self.actualizar_estado(self.pendiente[i])
+               
 
 
 #PIEZAS
@@ -213,6 +221,11 @@ class Sistema:
     if isinstance(cliente, Empresa):
       pre = pre*0,8
     return pre
+  
+  def actualizar_estado(pedido):
+     pedido.fecha_entregado = datetime.now()
+     pedido.estado = "entregado"
+
      
   def listar_pedidos(self):
     if not self.pedidos:
