@@ -43,7 +43,8 @@ if __name__ == "__main__":
                 costo = float(input("Ingrese el costo de la pieza: "))
                 tamaño_lote = int(input("Ingrese el tamaño del lote: "))
                 cantidad_disponible = int(input("Ingrese la cantidad disponible: "))
-                sistema.registrar_pieza(descripcion, costo, tamaño_lote)
+                sistema.registrar_pieza(descripcion, costo, tamaño_lote, cantidad_disponible)
+                print("La pieza fue registrada")
             
             if regis == 2:
                 maquina_existe = True
@@ -159,6 +160,7 @@ if __name__ == "__main__":
                         print("El cliente ha sido registrado")
 
                 else:
+                        cliente_existe = True
                         while cliente_existe==True:
                             try: 
                                 nomP=input("Ingrese el nombre ")

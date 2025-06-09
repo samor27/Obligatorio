@@ -2,10 +2,12 @@ from entities.pedido import Pedido
 from entities.maquina import Maquina
 from entities.cliente import Cliente
 from entities.cliente import Empresa
+from entities.cliente import Particular
+from entities.reposicion import Reposición
 from exceptions.cedula_invalida import CedulaInvalida
 from exceptions.telefono_invalido import TelefonoInvalido
 from entities.pieza import Pieza
-import datetime 
+from datetime import datetime 
 from exceptions.cedula_invalida import CedulaInvalida
 from exceptions.telefono_invalido import TelefonoInvalido
 from exceptions.cliente_ya_existe import ClienteYaExiste
@@ -57,7 +59,7 @@ class Sistema:
   def registrar_particular(self, telefono,correo,cedula,nombre_completo):
         ID = self.max_clientes
         self.max_clientes+=1
-        nombre_completo= Particular(ID,telefono,correo,cedula, nombre_completo)
+        nombre_completo = Particular(ID,telefono,correo,cedula, nombre_completo)
         self.agregar_clientes(nombre_completo)
 
   def validar_cedula(self, ci):
@@ -127,12 +129,12 @@ class Sistema:
 
 #PIEZAS
   
-  def registrar_pieza(self,descripcion,costo,tamaño_lote,cantidad_disponible):
+  def registrar_pieza(self,descripcion,costo,tamaño_lote, cantidad_disponible):
     for i in range(len(self.piezas)):
           if self.piezas[i].descripcion.lower() == descripcion.lower():
              raise ValueError("La pieza ya está registrada")
     codigo = self.codigo_pieza
-    nueva_pieza = Pieza(codigo, descripcion, costo, tamaño_lote,cantidad_disponible)
+    nueva_pieza = Pieza(codigo, descripcion, costo, tamaño_lote, cantidad_disponible)
     self.piezas.append(nueva_pieza)  
     self.codigo_pieza += 1
 
@@ -165,7 +167,8 @@ class Sistema:
   def registrar_pedido(self, cliente, maquina, fecha_entregado, estado, precio, piezas_faltantes):
       pedido = Pedido(cliente, maquina, fecha_entregado, estado, precio)
       self.pedidos.append(pedido)
-      self.ingresos +=pedido.precio
+      self.ingresos += int(precio)
+
       if estado == "pendiente":
          v=[pedido, piezas_faltantes]
          self.pendiente.append(v)
@@ -194,15 +197,15 @@ class Sistema:
          return False
       print("Maquinas: ") #Lista de Maquinas
       for i in range (len(self.maquinas)):
-        Maquina = self.maquina[i]
+        Maquina = self.maquinas[i]
         print (f"{i}) {Maquina.descripcion}")
 
       cond = False
       while cond == False:
         num = int(input("Introduzca el número de la maquina que quiera pedir: "))
-        for i in range (maquina):
+        for i in range (len(self.maquinas)):
           if num == i:
-            maquina = maquina[i]
+            maquina = self.maquinas[i]
             return maquina
         else:
           print("El numero ingresado no corresponde con ninguna Maquina." /
@@ -218,9 +221,9 @@ class Sistema:
         pieza_cantidad.append((maquina.requerimientos[j].pieza), (diferencia))
         piezas_faltantes.append(pieza_cantidad)
     if len(piezas_faltantes) == 0:
-       return "entregado", piezas_faltantes
+      maquina.requerimientos[j].pieza.cantidad_disponible -= maquina.requerimientos[j].cantidad
+      return "entregado", piezas_faltantes
     else:
-       maquina.requerimientos[j].pieza.cantidad_disponible -= maquina.requerimientos[j].cantidad
        return "pendiente", piezas_faltantes
 
   def fecha_entrega(estado):
@@ -230,7 +233,7 @@ class Sistema:
         return datetime.now()
      
   def pre (cliente, maquina):
-    pre = (maquina.costo_produccion *1,5)
+    pre = (maquina.costo_produccion * 1.5)
     if isinstance(cliente, Empresa):
       pre = pre*0,8
     return pre
@@ -245,11 +248,11 @@ class Sistema:
       print("No hay pedidos registrados")
     else:
       print("Desesa filtrar los pedidos en 'Entregados' y 'Pendientes'?")
-      filtro = input("si/no")
-      while filtro != "si" or "no":
+      filtro = input("(si/no): ")
+      while filtro != "si" and filtro != "no":
         print("Entrada no valida. Pruebe nuevamente:")
         print("Desesa filtrar los pedidos en 'Entregados' y 'Pendientes'?")
-        filtro = input("si/no")
+        filtro = input("(si/no): ")
       if filtro == "si":
         entregados = []
         pendientes = []
@@ -260,17 +263,17 @@ class Sistema:
             pendientes.append(self.pedidos[i])
         print("Entregados:")
         for j in range (len(entregados)):
-          print(f"Cliente: [{entregados[j].cliente.ID}], Maquina: [{entregados[j].maquina.descripcion}], "
+          print(f"Cliente: [{entregados[j].cliente.correo}], Maquina: [{entregados[j].maquina.descripcion}], "
                 f"Fecha recibido: [{entregados[j].fecha_recibido}], Fecha entregado: [{entregados[j].fecha_entregado}], "
                 f"Estado: [{entregados[j].estado}], Precio: [{entregados[j].precio}]")
         print("Pendientes:")
         for k in range (len(pendientes)):
-          print(f"Cliente: [{pendientes[k].cliente.ID}], Maquina: [{pendientes[k].maquina.descripcion}], "
+          print(f"Cliente: [{pendientes[k].cliente.correo}], Maquina: [{pendientes[k].maquina.descripcion}], "
                 f"Fecha recibido: [{pendientes[k].fecha_recibido}], Fecha entregado: [{pendientes[k].fecha_entregado}], "
                 f"Estado: [{pendientes[k]}], Precio: [{pendientes[k].precio}]")
       if filtro == "no":
          for l in range(self.pedidos):
-            print(f"Cliente: [{self.pedidos[l].cliente.ID}], Maquina: [{self.pedidos[l].maquina.descripcion}], "
+            print(f"Cliente: [{self.pedidos[l].cliente.correo}], Maquina: [{self.pedidos[l].maquina.descripcion}], "
                  f"Fecha recibido: [{self.pedidos[l].fecha_recibido}], Fecha entregado: [{self.pedidos[l].fecha_entregado}], "
                  f"Estado: [{self.pedidos[l]}], Precio: [{self.pedidos[l].precio}]")
             
@@ -324,7 +327,7 @@ class Sistema:
   def contabilidad (self):
    for i in range(len(self.pedidos)):
      if self.pedidos[i].estado == "entregado":
-        self.costos += self.pedidos[i].maquina.costos_produccion
+        self.costos += self.pedidos[i].maquina.costo_produccion
    print (("El costo total de las máquinas vendidadas es "), (self.costos))
    print  ("El total de ingresos es ", (self.ingresos))
    ganancias = self.ingresos - self.costos
@@ -336,7 +339,7 @@ class Sistema:
 
 
 
-def validar_descripcion(self, descripcion, tipo="pieza"):
+  def validar_descripcion(self, descripcion, tipo="pieza"):
     if not isinstance(descripcion, str) or descripcion.strip() == "":
         raise DescripcionInvalida("La descripción no puede estar vacía.")
     if descripcion.strip().isnumeric():

@@ -1,10 +1,10 @@
 class Pieza:
-    def __init__(self,codigo,descripcion,costo,tamaño_lote):
+    def __init__(self,codigo,descripcion,costo,tamaño_lote, cantidad_disponible):
         self.__codigo = codigo
         self.__descripcion = descripcion
         self.__costo = costo
         self.__tamaño_lote = tamaño_lote
-        self.__cantidad_disponible = 0
+        self.__cantidad_disponible = cantidad_disponible
 
     @property
     def codigo(self):

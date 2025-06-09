@@ -1,13 +1,14 @@
 from entities.cliente import Cliente
 from entities.maquina import Maquina
-import datetime
+from datetime import datetime
 class Pedido:
-    def __init__(self, cliente: Cliente, maquina: Maquina, fecha_entregado, estado, pedido=0):
+    def __init__(self, cliente: Cliente, maquina: Maquina, fecha_entregado, estado, precio):
         self.__cliente = cliente
         self.__maquina = maquina
         self.__fecha_recibido = datetime.now()
         self.__fecha_entregado = fecha_entregado
         self.__estado = estado
+        self.precio = precio
 
     
     @property
